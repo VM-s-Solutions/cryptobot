@@ -1,0 +1,28 @@
+version: "3.4"
+
+services:
+  db:
+    build:
+      context: ./deploy/db
+    ports:
+      - 5432:5432
+    networks:
+      - cryptobot-network
+
+  api:
+    build:
+      context: ./src
+      dockerfile: VM.CryptoBot.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=DevelopmentDocker
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - 5000:80
+    depends_on:
+      - db
+    networks:
+      - cryptobot-network
+
+networks:
+  cryptobot-network:
+    driver: bridge

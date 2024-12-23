@@ -30,8 +30,12 @@ jobs:
       - name: Build Docker images
         run: docker-compose -f docker-compose.yml build
 
+      - name: Start Services
+        run: docker-compose -f docker-compose.yml up -d db
+
       - name: Run Tests
         run: |
-          docker-compose -f docker-compose.yml up -d db
           docker-compose -f docker-compose.yml run --rm api dotnet test --configuration Release
-          docker-compose -f docker-compose.yml down
+
+      - name: Shutdown Services
+        run: docker-compose -f docker-compose.yml down

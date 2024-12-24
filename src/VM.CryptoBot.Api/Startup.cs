@@ -1,4 +1,5 @@
-﻿using VM.CryptoBot.Api.Extensions;
+﻿using VM.CryptoBot.Api.Middlewares;
+using VM.CryptoBot.Config;
 
 namespace VM.CryptoBot.Api;
 
@@ -9,7 +10,12 @@ public class Startup(IConfiguration configuration)
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-        services.AddServices(configuration);
+
+        services.AddHttpContextAccessor();
+        services.AddExceptionHandler<GlobalExceptionHandler>();
+        services.AddProblemDetails();
+        
+        services.AddCoreBindings(configuration);
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

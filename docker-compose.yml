@@ -1,25 +1,96 @@
-version: "3.4"
+version: "3.9"
 
 services:
+  # Build the application
+  build:
+    image: crypto-bot-build
+    build:
+      context: ./src
+      dockerfile: VM.CryptoBot.Api/Dockerfile
+      target: build
+    volumes:
+      - .:/src
+    command:
+      [
+        "dotnet",
+        "build",
+        "./src/VM.CryptoBot.Api/VM.CryptoBot.Api.csproj",
+        "--configuration",
+        "Release",
+      ]
+    networks:
+      - cryptobot-network
+
+  # Run unit tests
+  unit-tests:
+    image: crypto-bot-unit-tests
+    build:
+      context: ./src
+      dockerfile: VM.CryptoBot.Api/Dockerfile
+      target: unit-tests
+    volumes:
+      - .:/src
+    command:
+      [
+        "dotnet",
+        "test",
+        "./src/VM.CryptoBot.Tests/VM.CryptoBot.Tests.csproj",
+        "--logger:trx",
+        "--results-directory",
+        "/src/testresults",
+      ]
+    networks:
+      - cryptobot-network
+
+  # Run integration tests
+  integration-tests:
+    image: crypto-bot-integration-tests
+    build:
+      context: ./src
+      dockerfile: VM.CryptoBot.Api/Dockerfile
+      target: integration-tests
+    volumes:
+      - .:/src
+    command:
+      [
+        "dotnet",
+        "test",
+        "./src/VM.CryptoBot.IntegrationTests/VM.CryptoBot.IntegrationTests.csproj",
+        "--logger:trx",
+        "--results-directory",
+        "/src/testresults",
+      ]
+    networks:
+      - cryptobot-network
+
+  # Final image for running the application
+  app:
+    image: crypto-bot-app
+    build:
+      context: ./src
+      dockerfile: VM.CryptoBot.Api/Dockerfile
+      target: final
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    command:
+      [
+        "dotnet",
+        "watch",
+        "run",
+        "--project",
+        "./app/VM.CryptoBot.Api/VM.CryptoBot.Api.csproj",
+      ]
+    networks:
+      - cryptobot-network
+
+  # Database service for local development (optional)
   db:
     build:
       context: ./deploy/db
     ports:
       - 5432:5432
-    networks:
-      - cryptobot-network
-
-  api:
-    build:
-      context: ./src
-      dockerfile: VM.CryptoBot.Api/Dockerfile
-    environment:
-      - ASPNETCORE_ENVIRONMENT=DevelopmentDocker
-      - ASPNETCORE_URLS=http://+:80
-    ports:
-      - 5000:80
-    depends_on:
-      - db
     networks:
       - cryptobot-network
 

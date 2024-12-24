@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VM.CryptoBot.AppServices\VM.CryptoBot.AppServices.csproj" />
+    <ProjectReference Include="..\VM.CryptoBot.Config\VM.CryptoBot.Config.csproj" />
     <ProjectReference Include="..\VM.CryptoBot.Infra\VM.CryptoBot.Infra.csproj" />
   </ItemGroup>
 

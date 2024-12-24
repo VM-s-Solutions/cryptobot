@@ -14,6 +14,6 @@ public class ExampleTest
         var result = x + y;
 
         // Assert
-        Assert.AreEqual(3, result);
+        Assert.AreEqual(4, result);
     }
 }

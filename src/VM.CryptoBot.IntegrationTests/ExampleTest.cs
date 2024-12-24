@@ -1,4 +1,4 @@
-﻿namespace VM.CryptoBot.Tests;
+﻿namespace VM.CryptoBot.IntegrationTests;
 
 [TestClass]
 public class ExampleTest

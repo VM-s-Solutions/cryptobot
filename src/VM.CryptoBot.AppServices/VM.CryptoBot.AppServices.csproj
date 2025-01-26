@@ -7,11 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
     <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Nethereum.Web3" Version="4.28.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VM.CryptoBot.Core.Queue.Abstractions\VM.CryptoBot.Core.Queue.Abstractions.csproj" />
+    <ProjectReference Include="..\VM.CryptoBot.Core.Table.Abstractions\VM.CryptoBot.Core.Table.Abstractions.csproj" />
     <ProjectReference Include="..\VM.CryptoBot.Domain\VM.CryptoBot.Domain.csproj" />
+    <ProjectReference Include="..\VM.CryptoBot.Infra\VM.CryptoBot.Infra.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using VM.CryptoBot.Domain.Repositories.Common;
-using VM.CryptoBot.Domain.Repositories.Interfaces;
+using VM.CryptoBot.Domain.Common;
+using VM.CryptoBot.Domain.Repositories;
 
 namespace VM.CryptoBot.Config.Repository;
 

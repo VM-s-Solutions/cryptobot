@@ -1,8 +1,8 @@
 ﻿using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
-using VM.CryptoBot.Domain.Configurations.Common;
-using VM.CryptoBot.Domain.Entities.Common;
-using VM.CryptoBot.Domain.Repositories.Interfaces;
+using VM.CryptoBot.Domain.Common;
+using VM.CryptoBot.Domain.Common.Entities;
+using VM.CryptoBot.Domain.Repositories;
 
 namespace VM.CryptoBot.Domain.Store;
 
@@ -39,15 +39,15 @@ public class CryptoBotDbContext : DbContext, IUnitOfWork
         {
             if (entity.State == EntityState.Added)
             {
-                entity.Entity.Create(stateUser);
+                entity.Entity.Created(stateUser);
             }
             else if (entity.State == EntityState.Modified)
             {
-                entity.Entity.Update(stateUser);
+                entity.Entity.Updated(stateUser);
 
                 if (!entity.Entity.IsActive)
                 {
-                    entity.Entity.Deactivate(stateUser);
+                    entity.Entity.Deactivated(stateUser);
                 }
             }
         }

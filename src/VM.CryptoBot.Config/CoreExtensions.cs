@@ -14,10 +14,12 @@ public static class CoreExtensions
 {
     public static IServiceCollection AddCoreBindings(this IServiceCollection services, IConfiguration configuration, IHostEnvironment env)
     {
+        services.AddHttpContextAccessor();
         services.AddRepositories();
-        services.AddSettings(configuration);
+        services.AddSettings();
+        services.AddWeb3();
         services.AddDatabase(configuration);
-        services.AddServices(configuration);
+        services.AddServices();
         services.AddAzureQueue(configuration, env);
         services.AddAzureTable(configuration, env);
 

@@ -5,7 +5,7 @@ namespace VM.CryptoBot.Api;
 
 public class Startup(IConfiguration configuration)
 {
-    public void ConfigureServices(IServiceCollection services)
+    public void ConfigureServices(IServiceCollection services, IHostEnvironment env)
     {
         services.AddControllers();
         services.AddEndpointsApiExplorer();
@@ -15,7 +15,7 @@ public class Startup(IConfiguration configuration)
         services.AddExceptionHandler<GlobalExceptionHandler>();
         services.AddProblemDetails();
         
-        services.AddCoreBindings(configuration);
+        services.AddCoreBindings(configuration, env);
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

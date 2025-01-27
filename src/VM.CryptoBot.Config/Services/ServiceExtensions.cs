@@ -7,10 +7,10 @@ namespace VM.CryptoBot.Config.Services;
 
 public static class ServiceExtensions
 {
-    public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddServices(this IServiceCollection services)
     {
-        services.AddScoped<IBitcoinService, BitcoinService>();
         services.AddScoped<IEthereumService, EthereumService>();
+        services.AddScoped<ICoinService, CoinService>();
 
         return services;
     }

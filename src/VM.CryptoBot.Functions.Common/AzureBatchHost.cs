@@ -1,7 +1,5 @@
 ﻿using System.Reflection;
-using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using VM.CryptoBot.Config;
 
 namespace VM.CryptoBot.Functions.Common;

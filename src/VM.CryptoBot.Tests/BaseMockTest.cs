@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.Extensions.Logging;
 using Moq;
 using VM.CryptoBot.Config;
@@ -35,7 +36,7 @@ public class BaseMockTest : BaseMockedDbContextTest<CryptoBotDbContext>
         async Task Setup(IServiceCollection services)
         {
             services.AddLogging(builder => { builder.AddConsole(); });
-            services.AddCoreBindings(Configuration);
+            services.AddCoreBindings(Configuration, new HostingEnvironment());
 
             if (setup is not null)
             {

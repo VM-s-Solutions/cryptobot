@@ -26,7 +26,12 @@ public class VMTableClient : IVMTableClient
         var query = _tableClient.QueryAsync<T>(filter, maxPerPage: 1, cancellationToken: cancellationToken);
         await foreach (var page in query.AsPages().WithCancellation(cancellationToken))
         {
-            return page.Values.FirstOrDefault();
+            foreach (var value in page.Values)
+            {
+                return value;
+            }
+
+            return null;
         }
 
         return null;

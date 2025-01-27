@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.Extensions.Logging;
 using VM.CryptoBot.Config;
 using VM.CryptoBot.Domain.Store;
@@ -35,7 +36,7 @@ public class IntegrationTestBase : BaseTransactionalPostgresSqlTest<CryptoBotDbC
         async Task Setup(IServiceCollection services)
         {
             services.AddLogging(builder => { builder.AddConsole(); });
-            services.AddCoreBindings(Configuration);
+            services.AddCoreBindings(Configuration, new HostingEnvironment());
 
             if (setup is not null)
             {
